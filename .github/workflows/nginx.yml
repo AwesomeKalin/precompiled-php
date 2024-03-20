@@ -18,18 +18,17 @@ jobs:
           ref: 'release-${{ inputs.nginxVer }}'
 
       - name: Install Dependencies
-        run: sudo apt install pkg-config build-essential autoconf bison re2c libxml2-dev libsqlite3-dev
+        run: sudo apt install build-essential binutils gcc libpcre3-dev libssl-dev zlib1g-dev
 
       - name: Generate config
-        run: ./auto/configure
+        run: ./auto/configure --with-http_ssl_module --with-threads --with-file-aio
 
       - name: Build NGINX
         run: |
           make -j4
-          cd src
-          ls
+          sudo make install
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          path: ./sapi/cli/php
+          path: /opt/nginx-${{ inputs.nginxVer }}
