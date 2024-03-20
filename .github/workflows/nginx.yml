@@ -24,19 +24,10 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential binutils gcc libpcre3-dev zlib1g-dev wget tar
-
-      - name: Download and configure OpenSSL
-        run: |
-          wget https://www.openssl.org/source/openssl-${{ inputs.opensslVer }}.tar.gz
-          tar -xzf openssl-${{ inputs.opensslVer }}.tar.gz -C /tmp
-          cd /tmp/openssl-${{ inputs.opensslVer }}
-          ./config --prefix=/opt/openssl no-shared no-threads
-          make -j4
-          sudo make install
+          sudo apt-get install -y build-essential binutils gcc libpcre3-dev zlib1g-dev
 
       - name: Generate config
-        run: ./auto/configure --with-http_ssl_module --with-threads --with-file-aio --with-http_v2_module --with-http_v3_module --with-openssl=/opt/openssl
+        run: ./auto/configure --with-http_ssl_module --with-threads --with-file-aio --with-http_v2_module --with-http_v3_module --with-openssl
 
       - name: Build NGINX
         run: |
