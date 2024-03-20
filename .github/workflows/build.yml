@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          repository: 'https://github.com/php/php-src'
+          repository: 'php/php-src'
           ref: 'PHP-${{ inputs.phpVer }}'
 
       - name: Install Dependencies
