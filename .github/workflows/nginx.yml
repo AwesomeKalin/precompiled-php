@@ -21,7 +21,7 @@ jobs:
         run: sudo apt install pkg-config build-essential autoconf bison re2c libxml2-dev libsqlite3-dev
 
       - name: Generate config
-        run: ./auto/configure --enable-fcmgi
+        run: ./auto/configure
 
       - name: Build NGINX
         run: |
