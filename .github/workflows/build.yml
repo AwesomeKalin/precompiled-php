@@ -26,12 +26,9 @@ jobs:
           ./configure
 
       - name: Build PHP
-        run: |
-          make -j4
-          cd sapi/cli
-          ls
+        run: make -j4
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          path: ./sapi/fpm/fpm
+          path: ./sapi/cli/php
