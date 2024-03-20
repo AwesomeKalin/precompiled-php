@@ -1,0 +1,31 @@
+name: Building of PHP
+on:
+  workflow_dispatch:
+    inputs:
+      phpVer:
+        description: PHP Version
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          repository: 'https://github.com/php/php-src'
+          ref: 'PHP-${{ inputs.phpVer }}'
+
+      - name: Install Dependencies
+        run: sudo apt install  pkg-config build-essential autoconf bison re2c libxml2-dev libsqlite3-dev
+
+      - name: Generate config
+        run: |
+          ./buildconf
+          ./configure
+
+      - name: Build PHP
+        run: |
+          make -j4
+          ls
