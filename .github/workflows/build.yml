@@ -23,7 +23,7 @@ jobs:
       - name: Generate config
         run: |
           ./buildconf
-          ./configure
+          ./configure --enable-fcmgi
 
       - name: Build PHP
         run: make -j4
