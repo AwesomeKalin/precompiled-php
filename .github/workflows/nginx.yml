@@ -6,10 +6,6 @@ on:
         description: NGINX Version
         required: true
         type: string
-      opensslVer:
-        description: OpenSSL Version
-        required: true
-        type: string
 
 jobs:
   build:
