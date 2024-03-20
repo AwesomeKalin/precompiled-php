@@ -28,4 +28,5 @@ jobs:
       - name: Build PHP
         run: |
           make -j4
+          cd sapi
           ls
