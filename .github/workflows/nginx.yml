@@ -26,6 +26,7 @@ jobs:
       - name: Build NGINX
         run: |
           make -j4
+          cd objs
           ls
 
       - name: Upload artifacts
