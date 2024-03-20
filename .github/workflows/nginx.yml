@@ -6,10 +6,6 @@ on:
         description: NGINX Version
         required: true
         type: string
-      opensslVer:
-        description: OpenSSL Version
-        required: true
-        type: string
 
 jobs:
   build:
@@ -24,15 +20,10 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential binutils gcc libpcre3-dev zlib1g-dev wget tar
-
-      - name: Download OpenSSL
-        run: |
-          wget http://www.openssl.org/source/openssl-${{ inputs.opensslVer }}.tar.gz
-          tar xf openssl-${{ inputs.opensslVer }}.tar.gz
+          sudo apt-get install -y build-essential binutils gcc libpcre3-dev zlib1g-dev
 
       - name: Generate config
-        run: ./auto/configure --with-openssl=/home/runner/precompiled-php/precompiled-php/openssl-${{ inputs.opensslVer }} --with-http_ssl_module --with-threads --with-file-aio --with-http_v2_module --with-http_v3_module --with-openssl
+        run: ./auto/configure --with-http_ssl_module --with-threads --with-file-aio --with-http_v2_module --with-http_v3_module --with-openssl
 
       - name: Build NGINX
         run: |
