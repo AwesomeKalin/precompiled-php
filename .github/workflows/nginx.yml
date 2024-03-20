@@ -1,4 +1,4 @@
-name: Building of PHP
+name: Building of NGINX
 on:
   workflow_dispatch:
     inputs:
