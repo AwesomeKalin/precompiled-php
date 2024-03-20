@@ -1,0 +1,34 @@
+name: Building of PHP
+on:
+  workflow_dispatch:
+    inputs:
+      nginxVer:
+        description: NGINX Version
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          repository: 'nginx/nginx'
+          ref: 'release-${{ inputs.nginxVer }}'
+
+      - name: Install Dependencies
+        run: sudo apt install pkg-config build-essential autoconf bison re2c libxml2-dev libsqlite3-dev
+
+      - name: Generate config
+        run: ./auto/configure --enable-fcmgi
+
+      - name: Build NGINX
+        run: |
+          make -j4
+          ls
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./sapi/cli/php
