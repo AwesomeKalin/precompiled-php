@@ -21,7 +21,7 @@ jobs:
 
       - name: Download Lighttpd
         run: |
-          wget https://download.lighttpd.net/lighttpd/releases-${{ inputs.lightBranch }}/lighttpd-${  inputs.lightVer }}.tar.gz
+          wget https://download.lighttpd.net/lighttpd/releases-${{ inputs.lightBranch }}/lighttpd-${{ inputs.lightVer }}.tar.gz
           tar xf lighttpd-${  inputs.lightVer }}.tar.gz
 
       - name: Generate config
