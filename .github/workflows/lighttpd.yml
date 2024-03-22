@@ -31,7 +31,7 @@ jobs:
           
       - name: Build Lighttpd
         run: |
-          cd lighttpd-${  inputs.lightVer }}.tar.gz
+          cd lighttpd-${{ inputs.lightVer }}.tar.gz
           make -j4
           sudo make install
           
