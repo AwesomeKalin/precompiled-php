@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: musl-binary
-          path: $HOME/musl
+          path: /home/runner/musl
