@@ -1,0 +1,43 @@
+name: Building of Lighttpd
+on:
+  workflow_dispatch:
+    inputs:
+      lightBranch:
+        description: Lighttpd Branch
+        required: true
+        type: string
+      lightVer:
+        description: Lighttpd Version
+        required: true
+        type: string
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget tar
+          sudo apt-get build-dep lighttpd
+
+      - name: Download Lighttpd
+        run: |
+          wget https://download.lighttpd.net/lighttpd/releases-${{ inputs.lightBranch }}/lighttpd-${  inputs.lightVer }}.tar.gz
+          tar xf lighttpd-${  inputs.lightVer }}.tar.gz
+
+      - name: Generate config
+        run: |
+          cd lighttpd-${  inputs.lightVer }}.tar.gz
+          ./configure --prefix=/usr/local
+          
+      - name: Build Lighttpd
+        run: |
+          cd lighttpd-${  inputs.lightVer }}.tar.gz
+          make -j4
+          sudo make install
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighttpd-binary
+          path: /usr/local/lighttpd
