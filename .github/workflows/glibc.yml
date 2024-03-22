@@ -1,4 +1,4 @@
-name: Building of NGINX
+name: Building of GLIBC
 on:
   workflow_dispatch:
     inputs:
