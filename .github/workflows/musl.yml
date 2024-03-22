@@ -1,0 +1,38 @@
+name: Building of MUSL
+on:
+  workflow_dispatch:
+    inputs:
+      muslVer:
+        description: MUSL Version
+        required: true
+        type: string
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential binutils gcc libpcre3-dev zlib1g-dev wget tar
+
+      - name: Download MUSL
+        run: |
+          wget https://musl.libc.org/releases/musl-${{ inputs.muslVer }}.tar.gz
+          tar xf musl-${{ inputs.muslVer }}.tar.gz
+
+      - name: Generate config
+        run: |
+          cd musl-${{ inputs.muslVer }}
+          CC="musl-gcc -static" ./configure --prefix=$HOME/musl
+          
+      - name: Build MUSL
+        run: |
+          cd musl-${{ inputs.muslVer }}
+          make -j4
+          sudo make install
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: musl-binary
+          path: $HOME/musl
