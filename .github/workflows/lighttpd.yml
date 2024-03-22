@@ -26,12 +26,12 @@ jobs:
 
       - name: Generate config
         run: |
-          cd lighttpd-${{ inputs.lightVer }}.tar.gz
+          cd lighttpd-${{ inputs.lightVer }}
           ./configure --prefix=/usr/local --enable-static --disable-shared
           
       - name: Build Lighttpd
         run: |
-          cd lighttpd-${{ inputs.lightVer }}.tar.gz
+          cd lighttpd-${{ inputs.lightVer }}
           make -j4
           sudo make install
           
