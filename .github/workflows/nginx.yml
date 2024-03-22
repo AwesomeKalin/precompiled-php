@@ -36,7 +36,7 @@ jobs:
 
       - name: Build NGINX
         run: |
-          LIBS=-ldl make
+          LIBS=-static make
           sudo make install
           
       - name: Upload artifacts
