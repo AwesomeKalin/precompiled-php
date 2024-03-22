@@ -1,0 +1,32 @@
+name: Building of Gcompat
+on:
+  workflow_dispatch:
+    inputs:
+      glibcVer:
+        description: Gcompat Version
+        required: true
+        type: string
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential binutils gcc libpcre3-dev zlib1g-dev wget tar
+
+      - name: Download Gcompat
+        run: |
+          wget https://git.adelielinux.org/adelie/gcompat/-/archive/${{ inputs.glibcVer }}/gcompat-${{ inputs.glibcVer }}.tar.gz
+          tar xf ./gcompat-${{ inputs.glibcVer }}.tar.gz
+          
+      - name: Build Gcompat
+        run: |
+          DESTDIR=/opt/glibc-build/lib make -j4
+          sudo make install
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: gcompat-binary
+          path: /opt/glibc-build/lib
