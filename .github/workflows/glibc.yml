@@ -24,9 +24,9 @@ jobs:
         run: |
           cd ./glibc-${{ inputs.glibcVer }}
           ./configure --prefix=/opt/glibc-build
+          
       - name: Build GLIBC
         run: |
-          cd ./glibc-${{ inputs.glibcVer }}
           make -j4
           sudo make install
           
