@@ -13,7 +13,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential binutils gcc libpcre3-dev zlib1g-dev wget tar musl glibc
+          sudo apt-get install -y build-essential binutils gcc libpcre3-dev zlib1g-dev wget tar musl
 
       - name: Download Gcompat
         run: |
