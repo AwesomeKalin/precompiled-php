@@ -27,7 +27,7 @@ jobs:
       - name: Generate config
         run: |
           cd lighttpd-${{ inputs.lightVer }}
-          ./configure --prefix=/usr/local --enable-static --disable-shared
+          ./configure --prefix=/usr/local --enable-static --disable-shared -Wl,-rpath -Wl,LIBDIR
           
       - name: Build Lighttpd
         run: |
@@ -39,4 +39,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: lighttpd-binary
-          path: /usr/local/lighttpd
+          path: /usr/local/lib/lighttpd
