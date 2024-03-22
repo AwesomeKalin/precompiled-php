@@ -17,8 +17,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget tar
-          sudo apt-get build-dep lighttpd
+          sudo apt-get install -y autoconf automake m4 libtool build-essentials pcre-devel pkg-config openssl gnutls mbedtls nss wolfssl wget tar
 
       - name: Download Lighttpd
         run: |
@@ -28,7 +27,7 @@ jobs:
       - name: Generate config
         run: |
           cd lighttpd-${  inputs.lightVer }}.tar.gz
-          ./configure --prefix=/usr/local
+          ./configure --prefix=/usr/local --enable-static --disable-shared
           
       - name: Build Lighttpd
         run: |
