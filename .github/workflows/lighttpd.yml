@@ -17,7 +17,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y autoconf automake m4 libtool build-essentials pcre-devel pkg-config openssl gnutls mbedtls nss wolfssl wget tar
+          sudo apt-get install -y autoconf automake m4 libtool build-essential libpcre3-dev pkg-config openssl wget tar
 
       - name: Download Lighttpd
         run: |
