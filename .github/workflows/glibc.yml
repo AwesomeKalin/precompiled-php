@@ -1,0 +1,37 @@
+name: Building of NGINX
+on:
+  workflow_dispatch:
+    inputs:
+      glibcVer:
+        description: GLIBC Version
+        required: true
+        type: string
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential binutils gcc libpcre3-dev zlib1g-dev wget tar
+
+      - name: Download GLIBC
+        run: |
+          wget http://ftp.gnu.org/gnu/glibc/glibc-${{ inputs.glibcVer }}.tar.gz
+          tar xf glibc-${{ inputs.glibcVer }}.tar.gz
+
+      - name: Generate config
+        run: |
+          cd ./glibc-${{ inputs.glibcVer }}
+          ./configure --prefix=/opt/glibc-build
+      - name: Build GLIBC
+        run: |
+          cd ./glibc-${{ inputs.glibcVer }}
+          make -j4
+          sudo make install
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: glibc-binary
+          path: /opt/glibc-build/lib
