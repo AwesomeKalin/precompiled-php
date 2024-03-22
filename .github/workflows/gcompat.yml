@@ -22,6 +22,7 @@ jobs:
           
       - name: Build Gcompat
         run: |
+          cd gcompat-${{ inputs.glibcVer }}
           DESTDIR=/opt/glibc-build/lib make -j4
           sudo make install
           
