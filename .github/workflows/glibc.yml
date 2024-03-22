@@ -26,7 +26,7 @@ jobs:
           
       - name: Build GLIBC
         run: |
-          make -j4
+          LIBS=-ldl make -j4
           sudo make install
           
       - name: Upload artifacts
